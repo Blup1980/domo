@@ -21,7 +21,16 @@ class MQTT:
             exit()
 
     def _on_connect(client, userdata, flags, rc):
-        client.subscribe([("domo/valve/2/command",0)])
+        client.subscribe([("domo/valve/0/command", 0),
+                          ("domo/valve/1/command", 0),
+                          ("domo/valve/2/command", 0),
+                          ("domo/valve/3/command", 0),
+                          ("domo/valve/4/command", 0),
+                          ("domo/valve/5/command", 0),
+                          ("domo/valve/6/command", 0),
+                          ("domo/valve/7/command", 0),
+                          ("domo/valve/8/command", 0),
+                          ("domo/valve/9/command", 0)])
         MQTT.log.info('MQTT on connect called')
 
     def _on_message(client, userdata, msg):
@@ -44,6 +53,6 @@ class MQTT:
             msg = b'OPEN'
         else:
             msg = b'CLOSED'
-        MQTT.log.info('MQTT Publishing: Script started /domo/valve/' + str(channelNb)
+        MQTT.log.info('MQTT Publishing:/domo/valve/' + str(channelNb)
                       + '/status with payload :' + str(msg))
         self.client.publish('/domo/valve/' + str(channelNb) + '/status', payload=msg, qos=0, retain=True)

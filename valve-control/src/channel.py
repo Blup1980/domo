@@ -21,7 +21,7 @@ class Channel:
         self.newThreshold = percent*Channel.COUNTER_CYCLE/100
         if self.newThreshold < self.threshold:
             self.threshold = self.newThreshold
-        self.log.info("Chan=" + str(self.channelNb) + " set to " + str(self.threshold))
+        self.log.info("Chan=" + str(self.channelNb) + " set to " + str(percent))
 
     def computeState(self, cntr):
         if cntr == 0:
