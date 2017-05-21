@@ -53,6 +53,8 @@ class MQTT:
             msg = b'OPEN'
         else:
             msg = b'CLOSED'
-        MQTT.log.info('MQTT Publishing:/domo/valve/' + str(channelNb)
-                      + '/status with payload :' + str(msg))
-        self.client.publish('/domo/valve/' + str(channelNb) + '/status', payload=msg, qos=0, retain=True)
+
+        (result, mid) = self.client.publish('domo/valve/' + str(channelNb) + '/status',
+                                            payload=msg, qos=0, retain=True)
+        MQTT.log.info('MQTT Publishing:domo/valve/' + str(channelNb)
+                      + '/status with payload :' + str(msg) + ': ' + str(result))
