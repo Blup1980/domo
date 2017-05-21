@@ -5,7 +5,7 @@ from gi.repository import GObject
 from channels import Channels
 from i2cbus import I2cBus
 
-from src.sub.mqtt import MQTT
+from mqtt import MQTT
 
 MILI_IN_SEC = 1000
 UPDATE_RATE_SEC = 60
