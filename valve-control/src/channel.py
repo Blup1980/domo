@@ -11,7 +11,7 @@ class Channel:
         self.threshold = 0
         self.newThreshold = 0
         self.valveOpen = False
-        mqtt.register_inbound_callback(self.setPercent)
+        mqtt.register_inbound_callback(self.channelNb, self.setPercent)
 
     def setPercent(self, percent):
         if percent > 100:
