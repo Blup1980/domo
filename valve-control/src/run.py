@@ -1,9 +1,11 @@
 #!/usr/bin/python3
 import logging
-from src.i2cbus import I2cBus
-from src.mqtt import MQTT
-from src.channels import Channels
+
 from gi.repository import GObject
+from channels import Channels
+from i2cbus import I2cBus
+
+from src.sub.mqtt import MQTT
 
 MILI_IN_SEC = 1000
 UPDATE_RATE_SEC = 60

@@ -1,4 +1,4 @@
-from src.channel import Channel
+from channel import Channel
 
 
 class Channels:
