@@ -5,7 +5,7 @@ re_channel = re.compile('domo/valve/(\d+)/command')
 
 
 class MQTT:
-    inbound_callbacks = []
+    inbound_callbacks = [None]*10
     log = None
 
     def __init__(self, log):
