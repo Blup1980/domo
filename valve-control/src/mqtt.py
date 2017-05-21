@@ -33,7 +33,7 @@ class MQTT:
         MQTT.log.info('MQTT message: Channel ' + str(channelNb) + " Command " + str(percent))
         MQTT.inbound_callbacks[channelNb](percent)
 
-    def register_inbound_callback(channelNb, functionPtr):
+    def register_inbound_callback(self, channelNb, functionPtr):
         MQTT.inbound_callbacks[channelNb] = functionPtr
 
     def startThread(self):
