@@ -1,0 +1,57 @@
+import org.openhab.core.library.types
+
+var Timer timer = null
+
+rule "System_Startup"
+when
+	System started
+then
+	postUpdate(SystemStarted,OFF)
+	logInfo("Rules","System started!")
+	if (timer==null) {
+		timer = createTimer(now.plusSeconds(20)) [| sendCommand(SystemStarted,ON) ]
+	} else {
+		timer.cancel
+		timer = null
+	}
+end
+
+
+rule "init virtual items"
+when
+	Item SystemStarted changed from OFF to ON
+then
+	logInfo("Rules","ItemStarted switched to ON running init rules!")
+	if (et0_salon_sp.state == NULL ) {
+		postUpdate(et0_salon_sp,20.0)
+	}
+
+	if (et0_sdb_sp.state == NULL ) {
+		postUpdate(et0_sdb_sp,20.0)
+	}
+	
+	if (et0_bureauX_sp.state == NULL ) {
+		postUpdate(et0_bureauX_sp,20.0)
+	}
+
+	if (et0_jeux_sp.state == NULL ) {
+		postUpdate(et0_jeux_sp,20.0)
+	}
+
+	if (et0_cuisine_sp.state == NULL ) {
+		postUpdate(et0_cuisine_sp,20.0)
+	}
+
+	if (et1_parents_sp.state == NULL ) {
+		postUpdate(et1_parents_sp,20.0)
+	}
+
+	if (et1_damien_sp.state == NULL ) {
+		postUpdate(et1_damien_sp,20.0)
+	}
+
+	if (et1_sdb_sp.state == NULL ) {
+		postUpdate(et1_sdb_sp,20.0)
+	}
+end
+

@@ -1,0 +1,28 @@
+import org.openhab.core.library.types
+
+val Number hist = 1.0
+var Number currentTemp = 0.0
+var Number spTemp = 0.0
+
+rule "Rule Parents heating"
+when
+	Item et1_parents_sp changed or
+	Item et1_parents_sensor changed
+then
+	logInfo("Parents","Running Parents heating rules")
+	if (et1_parents_sp.state != NULL ) {
+		spTemp = et1_parents_sp.state as DecimalType
+		currentTemp = et1_parents_sensor.state as DecimalType
+		if ( currentTemp < (spTemp - hist)) { 
+			sendCommand(et1_parents_valve,"ON")
+			sendCommand(et1_parents_valve,"ON")
+			logInfo("Parents","Valve Parents->ON")
+		}
+		if ( currentTemp > (spTemp + hist)) {
+			sendCommand(et1_parents_valve,"OFF")
+			sendCommand(et1_parents_valve,"OFF")
+			logInfo("Parents","Valve Parents->OFF")
+		}
+	}
+end
+

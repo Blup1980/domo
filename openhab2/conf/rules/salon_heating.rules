@@ -1,0 +1,28 @@
+import org.openhab.core.library.types
+
+val Number hist = 1.0
+var Number currentTemp = 0.0
+var Number spTemp = 0.0
+
+rule "Rule Salon heating"
+when
+	Item et0_salon_sp changed or
+	Item et0_salon_sensor changed
+then
+	logInfo("Salon","Running salon heating rules")
+	if (et0_salon_sp.state != NULL ) {
+		spTemp = et0_salon_sp.state as DecimalType
+		currentTemp = et0_salon_sensor.state as DecimalType
+		if ( currentTemp < (spTemp - hist)) { 
+			sendCommand(et0_salon1_valve,"ON")
+			sendCommand(et0_salon2_valve,"ON")
+			logInfo("Salon","Valve salon 1&2->ON")
+		}
+		if ( currentTemp > (spTemp + hist)) {
+			sendCommand(et0_salon1_valve,"OFF")
+			sendCommand(et0_salon2_valve,"OFF")
+			logInfo("Salon","Valve salon 1&2->OFF")
+		}
+	}
+end
+

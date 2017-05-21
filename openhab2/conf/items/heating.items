@@ -1,0 +1,64 @@
+Group All
+Group etage2		(All)
+Group etage1		(All)
+Group etage0 		(All)
+Group status		(All)
+Group valves		(All)
+Group sensors		(All)
+Group setpoints		(All)
+
+Group et0_salon		"Salon"		 	<video> 	(etage0)
+Group et0_cuisine 	"Cuisine" 		<kitchen> 	(etage0)
+Group et0_sdb	 	"Salle de Bain"		<bath> 		(etage0)
+Group et0_bureauX 	"Bureau Xavier"		<office> 	(etage0)
+Group et0_jeux		"Salle de jeux"		<vacation> 	(etage0)
+
+Group et1_sdb 		"Salle de bain"		<bath> 		(etage1)
+Group et1_parents 	"Chambre parents"	<bedroom> 	(etage1)
+Group et1_damien	"Chambre Damien" 	<boy1> 		(etage1)
+
+Group et2_mezza		"Mezzanine"		<office>	(etage2)
+
+/* Heating */
+Switch et0_salon1_valve		"Salon 1 [MAP(fr.map):%s]"		<switch>	(et0_salon,valves)	{mqtt=">[mosquitto_broker:domo/valve/2/command:command:*:default]"}
+Switch et0_salon2_valve		"Salon 2 [MAP(fr.map):%s]"		<switch>	(et0_salon,valves)      {mqtt=">[mosquitto_broker:domo/valve/3/command:command:*:default]"}
+Switch et0_cuisine_valve	"Cuisine [MAP(fr.map):%s]"		<switch>	(et0_cuisine,valves)    {mqtt=">[mosquitto_broker:domo/valve/4/command:command:*:default]"}
+Switch et0_sdb_valve		"Sdb bas [MAP(fr.map):%s]"		<switch>	(et0_sdb,valves)        {mqtt=">[mosquitto_broker:domo/valve/5/command:command:*:default]"}
+Switch et0_bureauX_valve	"Bureau XR [MAP(fr.map):%s]"		<switch>	(et0_bureauX,valves)    {mqtt=">[mosquitto_broker:domo/valve/1/command:command:*:default]"}
+Switch et0_jeux_valve		"Salle de jeux [MAP(fr.map):%s]"	<switch>	(et0_jeux,valves)	{mqtt=">[mosquitto_broker:domo/valve/0/command:command:*:default]"}
+
+Switch et1_sdb_valve		"Sdb haut [MAP(fr.map):%s]"		<switch>	(et1_sdb,valves)        {mqtt=">[mosquitto_broker:domo/valve/8/command:command:*:default]"}
+Switch et1_parents_valve	"Chambre parents [MAP(fr.map):%s]"	<switch>	(et1_parents,valves)    {mqtt=">[mosquitto_broker:domo/valve/7/command:command:*:default]"}
+Switch et1_damien_valve		"Chambre Damien [MAP(fr.map):%s]"	<switch>	(et1_damien,valves)     {mqtt=">[mosquitto_broker:domo/valve/6/command:command:*:default]"}
+
+Number et0_salon_sp		"Temperature [%.0f %%]"			<temperature>	(et0_salon,setpoints) 	
+Number et0_cuisine_sp		"Temperature [%.0f %%]"			<temperature>	(et0_cuisine,setpoints) 	
+Number et0_sdb_sp		"Temperature [%.0f %%]"			<temperature>	(et0_sdb,setpoints) 	
+Number et0_bureauX_sp		"Temperature [%.0f %%]"			<temperature>	(et0_bureauX,setpoints) 	
+Number et0_jeux_sp		"Temperature [%.0f %%]"			<temperature>	(et0_jeux,setpoints) 	
+
+Number et1_sdb_sp		"Temperature [%.0f %%]"			<temperature>	(et1_sdb,setpoints) 	
+Number et1_parents_sp		"Temperature [%.0f %%]"			<temperature>	(et1_parents,setpoints) 	
+Number et1_damien_sp		"Temperature [%.0f %%]"			<temperature>	(et1_damien,setpoints) 	
+
+
+/* Temp Sensors */
+Number et0_salon_sensor		"Salon [%.1f °C]" 			<temperature> 	(et0_salon,sensors)	{enocean="{id=01:82:44:67, eep=A5:02:05, parameter=TEMPERATURE}"}
+Number et1_parents_sensor	"Chambre parents [%.1f °C]" 		<temperature> 	(et1_parents,sensors)	{enocean="{id=01:A3:8E:6E, eep=A5:02:05, parameter=TEMPERATURE}"}
+//Number et1_damien_sensor	"Chambre Damien [%.1f °C]" 		<temperature> 	(et1_damien,sensors)	{enocean="{id=00:00:00:00, eep=A5:02:05, parameter=TEMPERATURE}"}
+//Number et2_mezza_sensor	"Mezzanine [%.1f °C]" 			<temperature> 	(et2_mezza,sensors)	{enocean="{id=00:00:00:00, eep=A5:02:05, parameter=TEMPERATURE}"}
+
+/* Etat des vannes */
+
+Contact et0_salon1_status	"Salon 1 [MAP(fr.map):%s]"		<switch>	(et0_salon,status)	{mqtt="<[mosquitto_broker:domo/valve/2/status:state:default]"}
+Contact et0_salon2_status	"Salon 2 [MAP(fr.map):%s]"		<switch>	(et0_salon,status)	{mqtt="<[mosquitto_broker:domo/valve/3/status:state:default]"}
+Contact et0_cuisine_status	"Cuisine [MAP(fr.map):%s]"		<switch>	(et0_cuisine,status)	{mqtt="<[mosquitto_broker:domo/valve/4/status:state:default]"}
+Contact et0_bureauX_status	"Bureau XR [MAP(fr.map):%s]"		<switch>	(et0_bureauX,status)	{mqtt="<[mosquitto_broker:domo/valve/1/status:state:default]"}
+Contact et0_jeux_status		"salle de jeux [MAP(fr.map):%s]"	<switch>	(et0_jeux,status)	{mqtt="<[mosquitto_broker:domo/valve/0/status:state:default]"}
+Contact et0_sdb_status		"Sdb bas [MAP(fr.map):%s]"		<switch>	(et0_sdb,status)	{mqtt="<[mosquitto_broker:domo/valve/5/status:state:default]"}
+Contact et1_parents_status	"Chambre parents [MAP(fr.map):%s]"	<switch>	(et1_parents,status)	{mqtt="<[mosquitto_broker:domo/valve/7/status:state:default]"}
+Contact et1_damien_status	"Chambre Damien [MAP(fr.map):%s]"	<switch>	(et1_damien,status)	{mqtt="<[mosquitto_broker:domo/valve/6/status:state:default]"}
+Contact et1_sdb_status		"Sdb haut [MAP(fr.map):%s]"		<switch>	(et1_sdb,status)	{mqtt="<[mosquitto_broker:domo/valve/8/status:state:default]"}
+
+/* Demarrage differe des RULES */
+Switch SystemStarted "System: Started [%s]"

@@ -1,0 +1,16 @@
+sitemap _default label="Appartement Raemy"
+{
+	Frame label="Chauffage" {
+		Setpoint label="Salon [%.1f °C]" item=et0_salon_sp icon="video" minValue=10 maxValue=30 step=0.5
+		Setpoint label="Cuisine [%.1f °C]" item=et0_cuisine_sp icon="kitchen" minValue=10 maxValue=30 step=0.5
+		Setpoint label="Bureau Xav [%.1f °C]" item=et0_bureauX_sp icon="office" minValue=10 maxValue=30 step=0.5
+		Setpoint label="Salle de jeux [%.1f °C]" item=et0_jeux_sp icon="vacation" minValue=10 maxValue=30 step=0.5
+		Setpoint label="Sdb bas [%.1f °C]" item=et0_sdb_sp icon="bath" minValue=10 maxValue=30 step=0.5
+		Setpoint label="Chambre parents [%.1f °C]" item=et1_parents_sp icon="bedroom" minValue=10 maxValue=30 step=0.5
+		Setpoint label="Chambre Damien [%.1f °C]" item=et1_damien_sp icon="boy_1" minValue=10 maxValue=30 step=0.5
+		Setpoint label="Sdb haut (non fonctionnel) [%.1f °C]" item=et1_sdb_sp icon="bath" minValue=10 maxValue=30 step=0.5
+		Group item=status label="Etat des vannes" icon="switch"
+		Group item=valves label="Commande des vannes" icon="switch"
+		Group item=sensors label="Mesures" icon="temperature"
+	}
+}

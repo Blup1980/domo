@@ -1,0 +1,57 @@
+version: '2'
+
+networks:
+  domotic:
+
+services:
+  openhab:
+    image: openhab/openhab:2.1.0-snapshot-armhf
+    restart: always
+    depends_on:
+      - mosquitto
+    networks:
+      domotic:
+        aliases:
+          - openhab
+    ports:
+      - 8080:8080
+      - 8443:8443
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+      - ./openhab2/addons:/openhab/addons
+      - ./openhab2/conf:/openhab/conf
+      - ./openhab2/userdata:/openhab/userdata
+    environment:
+      - OPENHAB_HTTP_PORT=8080
+      - OPENHAB_HTTPS_PORT=8443
+      - EXTRA_JAVA_OPTS=-Dos.arch=arm -Dsun.arch.abi=gnueabihf
+    devices:
+      - /dev/ttyUSB0:/dev/ttyUSB0
+
+  mosquitto:
+    build: ./rpi-mosquitto
+    restart: always
+    networks:
+      domotic:
+        aliases:
+          - mosquitto
+    ports:
+     - 1883:1883
+    volumes:
+     - ./rpi-mosquitto/config:/mqtt/config:ro
+     - ./rpi-mosquitto/log:/mqtt/log
+     - ./rpi-mosquitto/data:/mqtt/data
+
+  valve:
+    build: ./valve-control
+    restart: always
+    networks:
+      domotic:
+        aliases:
+         - valve
+    volumes:
+     - ./valve-control/src:/valve/src
+     - ./valve-control/log:/valve/log
+    devices:
+     - /dev/i2c-1:/dev/i2c-1
