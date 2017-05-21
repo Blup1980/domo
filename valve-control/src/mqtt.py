@@ -12,8 +12,8 @@ class MQTT:
         MQTT.log = log
         try:
             self.client = mqtt.Client()
-            self.client.on_connect = self._on_connect
-            self.client.on_message = self._on_message
+            self.client.on_connect = MQTT._on_connect
+            self.client.on_message = MQTT._on_message
             self.client.connect("mosquitto", 1883, 60)
 
         except:
