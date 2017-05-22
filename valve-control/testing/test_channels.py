@@ -1,44 +1,36 @@
 from unittest import TestCase
-from unittest.mock import MagicMock
+from unittest.mock import MagicMock, patch
 from channel import Channel
 from channels import Channels
 import logging
 
-
-class MockMQTT:
-    def __init__(self, log):
-        pass
-
-    def register_inbound_callback(self, channelNb, functionPtr):
-        pass
-
-    def publish(self, channelNb, data):
-        pass
-
-
-class MockI2cBus:
-    def write(self, valve_nb, state):
-        pass
+mymodule_mqtt = MagicMock()
+mymodule_smbus = MagicMock()
+patch.dict("sys.modules", {'paho': mymodule_mqtt}).start()
+patch.dict("sys.modules", {'paho.mqtt': mymodule_mqtt}).start()
+patch.dict("sys.modules", {'paho.mqtt.client': mymodule_mqtt}).start()
+patch.dict("sys.modules", {'smbus': mymodule_smbus}).start()
+from mqtt import MQTT
+from i2cbus import I2cBus
 
 
 class TestChannels(TestCase):
     def setUp(self):
-        self.mock_mqtt = MockMQTT
-        self.mock_mqtt.register_inbound_callback = MagicMock()
-        self.mock_mqtt.publish = MagicMock()
         self.mock_log = logging.getLogger(__name__)
         self.mock_log.info = MagicMock()
-        self.mock_bus = MockI2cBus
-        self.mock_bus.write = MagicMock()
+        self.mqtt = MQTT(self.mock_log)
+        self.mqtt.register_inbound_callback = MagicMock()
+        self.mqtt.publish = MagicMock()
+        self.bus = I2cBus(self.mock_log)
 
     def test_channel_created(self):
-        dut = Channels(self.mock_bus, self.mock_log, self.mock_mqtt)
+        dut = Channels(self.bus, self.mock_log, self.mqtt)
 
         for c in dut.channelList:
             self.assertIsInstance(c, Channel)
 
     def test_shifted_starts(self):
-        dut = Channels(self.mock_bus, self.mock_log, self.mock_mqtt)
+        dut = Channels(self.bus, self.mock_log, self.mqtt)
         valveState = [False]*10
 
         # all a 100%
