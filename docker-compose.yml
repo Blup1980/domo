@@ -55,3 +55,18 @@ services:
      - ./valve-control/log:/valve/log
     devices:
      - /dev/i2c-1:/dev/i2c-1
+
+  mariadb:
+    image: jsurf/rpi-mariadb
+    restart: always
+    networks:
+      domotic:
+        aliases:
+          - mariadb
+    volumes:
+      - ./mariadb/datadir:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=rootpasswordhere
+      - MYSQL_DATABASE=openhab
+      - MYSQL_USER=openhabuser
+      - MYSQL_PASSWORD=openhabpass 
