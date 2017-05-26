@@ -1,0 +1,11 @@
+[Unit]
+ Description=heating docker
+ After=multi-user.target
+
+ [Service]
+ Type=idle
+ ExecStart=/usr/local/bin/docker-compose -f /home/pi/Documents/docker-compose.yml up
+ ExecStop=/usr/local/bin/docker-compose -f /home/pi/Documents/docker-compose.yml down 
+
+ [Install]
+ WantedBy=multi-user.target
