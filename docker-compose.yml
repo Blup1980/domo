@@ -5,7 +5,7 @@ networks:
 
 services:
   openhab:
-    image: openhab/openhab:2.1.0-snapshot-armhf
+    image: openhab/openhab:2.1.0-armhf
     restart: always
     depends_on:
       - mosquitto

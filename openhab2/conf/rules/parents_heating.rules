@@ -1,6 +1,6 @@
 import org.openhab.core.library.types
 
-val Number hist = 1.0
+val Number hist = 0.5 
 var Number currentTemp = 0.0
 var Number spTemp = 0.0
 
