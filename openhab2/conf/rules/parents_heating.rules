@@ -15,11 +15,9 @@ then
 		currentTemp = et1_parents_sensor.state as DecimalType
 		if ( currentTemp < (spTemp - hist)) { 
 			sendCommand(et1_parents_valve,"ON")
-			sendCommand(et1_parents_valve,"ON")
 			logInfo("Parents","Valve Parents->ON")
 		}
 		if ( currentTemp > (spTemp + hist)) {
-			sendCommand(et1_parents_valve,"OFF")
 			sendCommand(et1_parents_valve,"OFF")
 			logInfo("Parents","Valve Parents->OFF")
 		}

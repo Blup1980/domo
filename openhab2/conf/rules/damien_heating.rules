@@ -1,6 +1,6 @@
 import org.openhab.core.library.types
 
-val Number hist = 1.0
+val Number hist = 0.5
 var Number currentTemp = 0.0
 var Number spTemp = 0.0
 
@@ -15,11 +15,9 @@ then
 		currentTemp = et1_damien_sensor.state as DecimalType
 		if ( currentTemp < (spTemp - hist)) { 
 			sendCommand(et1_damien_valve,"ON")
-			sendCommand(et1_damien_valve,"ON")
 			logInfo("Damien","Valve Damien->ON")
 		}
 		if ( currentTemp > (spTemp + hist)) {
-			sendCommand(et1_damien_valve,"OFF")
 			sendCommand(et1_damien_valve,"OFF")
 			logInfo("Damien","Valve Damien->OFF")
 		}

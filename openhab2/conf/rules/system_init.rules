@@ -38,10 +38,6 @@ then
 		postUpdate(et0_jeux_sp,20.0)
 	}
 
-	if (et0_cuisine_sp.state == NULL ) {
-		postUpdate(et0_cuisine_sp,20.0)
-	}
-
 	if (et1_parents_sp.state == NULL ) {
 		postUpdate(et1_parents_sp,20.0)
 	}
