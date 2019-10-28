@@ -1,0 +1,3 @@
+[submodule "log2ram"]
+	path = log2ram
+	url = https://github.com/azlux/log2ram.git
