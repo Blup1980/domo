@@ -1,26 +1,23 @@
-import org.openhab.core.library.types
-
-val Number hist = 0.5
+val Number hysteresis = 0.5
 var Number currentTemp = 0.0
-var Number spTemp = 0.0
+var Number setPoint = 0.0
 
-rule "Rule Damien heating"
+rule "damien heating"
 when
 	Item et1_damien_sp changed or
 	Item et1_damien_sensor changed
 then
-	logInfo("Damien","Running Damien heating rules")
-	if (et1_damien_sp.state != NULL ) {
-		spTemp = et1_damien_sp.state as DecimalType
+	logInfo("Damien","Running damien heating rule")
+	if (et1_damien_sp.state != NULL) {
+		setPoint = et1_damien_sp.state as DecimalType
 		currentTemp = et1_damien_sensor.state as DecimalType
-		if ( currentTemp < (spTemp - hist)) { 
-			sendCommand(et1_damien_valve,"ON")
-			logInfo("Damien","Valve Damien->ON")
+		if (currentTemp < (setPoint - hysteresis)) {
+			et1_damien_valve.sendCommand(ON)
+			logInfo("Damien","enable heating")
 		}
-		if ( currentTemp > (spTemp + hist)) {
-			sendCommand(et1_damien_valve,"OFF")
-			logInfo("Damien","Valve Damien->OFF")
+		if (currentTemp > (setPoint + hysteresis)) {
+			et1_damien_valve.sendCommand(OFF)
+			logInfo("Damien","disable heating")
 		}
 	}
 end
-

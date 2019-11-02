@@ -5,10 +5,10 @@ networks:
 
 services:
   openhab:
-    image: openhab/openhab:2.4.0-armhf
+    image: openhab/openhab:2.4.0-armhf-debian
     restart: always
     depends_on:
-      - mosquitto
+      - mariadb
     networks:
       domotic:
         aliases:
@@ -16,6 +16,7 @@ services:
     ports:
       - 8080:8080
       - 8443:8443
+      - 8101:8101
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /etc/timezone:/etc/timezone:ro
@@ -28,33 +29,7 @@ services:
       - EXTRA_JAVA_OPTS=-Dos.arch=arm -Dsun.arch.abi=gnueabihf
     devices:
       - /dev/ttyUSB0:/dev/ttyUSB0
-
-  mosquitto:
-    build: ./rpi-mosquitto
-    restart: always
-    networks:
-      domotic:
-        aliases:
-          - mosquitto
-    ports:
-     - 1883:1883
-    volumes:
-     - ./rpi-mosquitto/config:/mqtt/config:ro
-     - ./var/log:/mqtt/log
-     - ./rpi-mosquitto/data:/mqtt/data
-
-  valve:
-    build: ./valve-control
-    restart: always
-    networks:
-      domotic:
-        aliases:
-         - valve
-    volumes:
-     - ./valve-control/src:/valve/src
-     - ./var/log:/valve/log
-    devices:
-     - /dev/i2c-1:/dev/i2c-1
+      - /dev/ttyACM0:/dev/ttyACM0
 
   mariadb:
     image: jsurf/rpi-mariadb

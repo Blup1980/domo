@@ -1,0 +1,218 @@
+rule "heating salon1"
+when
+	Item et0_salon1_valve received command
+then
+        logInfo("heating-control.rules", "salon1 changed")
+        if(receivedCommand == ON){
+	    openValve_param.sendCommand("0")
+	    openValve_run.sendCommand(ON)
+	}else{
+	    closeValve_param.sendCommand("0")
+            closeValve_run.sendCommand(ON)
+	}
+end
+
+rule "heating salon2"
+when
+	Item et0_salon2_valve received command
+then
+        logInfo("heating-control.rules", "salon2 changed")
+        if(receivedCommand == ON){
+	    openValve_param.sendCommand("1")
+	    openValve_run.sendCommand(ON)
+	}else{
+	    closeValve_param.sendCommand("1")
+            closeValve_run.sendCommand(ON)
+	}
+end
+
+rule "heating cuisine"
+when
+	Item et0_cuisine_valve received command
+then
+        logInfo("heating-control.rules", "cuisine changed")
+        if(receivedCommand == ON){
+	    openValve_param.sendCommand("2")
+	    openValve_run.sendCommand(ON)
+	}else{
+	    closeValve_param.sendCommand("2")
+            closeValve_run.sendCommand(ON)
+	}
+end
+
+rule "heating sdb"
+when
+	Item et0_sdb_valve received command
+then
+        logInfo("heating-control.rules", "sdb changed")
+        if(receivedCommand == ON){
+	    openValve_param.sendCommand("3")
+	    openValve_run.sendCommand(ON)
+	}else{
+	    closeValve_param.sendCommand("3")
+            closeValve_run.sendCommand(ON)
+	}
+end
+
+rule "heating bureauX"
+when
+	Item et0_bureauX_valve received command
+then
+        logInfo("heating-control.rules", "salon1 bureauX")
+        if(receivedCommand == ON){
+	    openValve_param.sendCommand("4")
+	    openValve_run.sendCommand(ON)
+	}else{
+	    closeValve_param.sendCommand("4")
+            closeValve_run.sendCommand(ON)
+	}
+end
+
+rule "heating jeux"
+when
+	Item et0_jeux_valve received command
+then
+        logInfo("heating-control.rules", "jeux changed")
+        if(receivedCommand == ON){
+	    openValve_param.sendCommand("5")
+	    openValve_run.sendCommand(ON)
+	}else{
+	    closeValve_param.sendCommand("5")
+            closeValve_run.sendCommand(ON)
+	}
+end
+
+rule "heating sdb1"
+when
+	Item et1_sdb_valve received command
+then
+        logInfo("heating-control.rules", "sdb1 changed")
+        if(receivedCommand == ON){
+	    openValve_param.sendCommand("6")
+	    openValve_run.sendCommand(ON)
+	}else{
+	    closeValve_param.sendCommand("6")
+            closeValve_run.sendCommand(ON)
+	}
+end
+
+rule "heating parents"
+when
+	Item et1_parents_valve received command
+then
+        logInfo("heating-control.rules", "parents changed")
+        if(receivedCommand == ON){
+	    openValve_param.sendCommand("7")
+	    openValve_run.sendCommand(ON)
+	}else{
+	    closeValve_param.sendCommand("7")
+            closeValve_run.sendCommand(ON)
+	}
+end
+
+rule "heating damien"
+when
+	Item et1_damien_valve received command
+then
+        logInfo("heating-control.rules", "damien changed")
+        if(receivedCommand == ON){
+	    openValve_param.sendCommand("7")
+	    openValve_run.sendCommand(ON)
+	}else{
+	    closeValve_param.sendCommand("7")
+            closeValve_run.sendCommand(ON)
+	}
+end
+
+
+
+
+
+rule "updateValveItem"
+when
+	Item getValve_run changed to OFF
+then
+	val stateStr = transform("REGEX", "(.)........", getValve_return.state.toString)
+	if (stateStr == '1'){
+ 		et0_salon1_valve.postUpdate(ON)
+		logInfo("heating-control.rules","update of salon1 to ON")
+	} else {
+		logInfo("heating-control.rules","update of salon1 to OFF")
+		et0_salon1_valve.postUpdate(OFF)
+	}
+
+	stateStr = transform("REGEX", ".(.).......", getValve_return.state.toString)
+	if (stateStr == '1'){
+ 		et0_salon2_valve.postUpdate(ON)
+		logInfo("heating-control.rules","update of salon2 to ON")
+	} else {
+		logInfo("heating-control.rules","update of salon2 to OFF")
+		et0_salon2_valve.postUpdate(OFF)
+	}
+
+	stateStr = transform("REGEX", "..(.)......", getValve_return.state.toString)
+	if (stateStr == '1'){
+ 		et0_cuisine_valve.postUpdate(ON)
+		logInfo("heating-control.rules","update of cuisine to ON")
+	} else {
+		logInfo("heating-control.rules","update of cuisine to OFF")
+		et0_cuisine_valve.postUpdate(OFF)
+	}
+
+	stateStr = transform("REGEX", "...(.).....", getValve_return.state.toString)
+	if (stateStr == '1'){
+ 		et0_sdb_valve.postUpdate(ON)
+		logInfo("heating-control.rules","update of sdb to ON")
+	} else {
+		logInfo("heating-control.rules","update of sdb to OFF")
+		et0_sdb_valve.postUpdate(OFF)
+	}
+
+	stateStr = transform("REGEX", "....(.)....", getValve_return.state.toString)
+	if (stateStr == '1'){
+ 		et0_bureauX_valve.postUpdate(ON)
+		logInfo("heating-control.rules","update of bureauX to ON")
+	} else {
+		logInfo("heating-control.rules","update of bureauX to OFF")
+		et0_bureauX_valve.postUpdate(OFF)
+	}
+
+  	stateStr = transform("REGEX", ".....(.)...", getValve_return.state.toString)
+	if (stateStr == '1'){
+ 		et0_jeux_valve.postUpdate(ON)
+		logInfo("heating-control.rules","update of jeux to ON")
+	} else {
+		logInfo("heating-control.rules","update of jeux to OFF")
+		et0_jeux_valve.postUpdate(OFF)
+	}
+
+  	stateStr = transform("REGEX", "......(.)..", getValve_return.state.toString)
+	if (stateStr == '1'){
+ 		et1_sdb_valve.postUpdate(ON)
+		logInfo("heating-control.rules","update of sdb1 to ON")
+	} else {
+		logInfo("heating-control.rules","update of sdb1 to OFF")
+		et1_sdb_valve.postUpdate(OFF)
+	}
+
+  	stateStr = transform("REGEX", ".......(.).", getValve_return.state.toString)
+	if (stateStr == '1'){
+ 		et1_parents_valve.postUpdate(ON)
+		logInfo("heating-control.rules","update of parents to ON")
+	} else {
+		logInfo("heating-control.rules","update of parents to OFF")
+		et1_parents_valve.postUpdate(OFF)
+	}
+
+  	stateStr = transform("REGEX", "........(.)", getValve_return.state.toString)
+	if (stateStr == '1'){
+ 		et1_damien_valve.postUpdate(ON)
+		logInfo("heating-control.rules","update of damien to ON")
+	} else {
+		logInfo("heating-control.rules","update of damien to OFF")
+		et1_damien_valve.postUpdate(OFF)
+	}
+
+
+
+end

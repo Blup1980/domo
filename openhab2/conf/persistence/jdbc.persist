@@ -22,4 +22,4 @@ Items {
     sensors* : strategy = every5Minutes, restoreOnStartup
     status*  : strategy = every5Minutes, restoreOnStartup
     valves*  : strategy = every5Minutes, restoreOnStartup
-} 
+}

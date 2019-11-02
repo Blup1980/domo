@@ -1,4 +1,4 @@
-sitemap _default label="Appartement Raemy"
+sitemap arnier label="Appartement Raemy"
 {
 	Frame label="Chauffage" {
 		Setpoint label="Salon [%.1f °C]" item=et0_salon_sp icon="video" minValue=10 maxValue=30 step=0.5
