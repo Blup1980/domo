@@ -30,6 +30,10 @@ services:
     devices:
       - /dev/ttyUSB0:/dev/ttyUSB0
       - /dev/ttyACM0:/dev/ttyACM0
+    logging:
+      options:
+        max-size: "5m"
+        max-file: "3"
 
   mariadb:
     image: jsurf/rpi-mariadb

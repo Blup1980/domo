@@ -116,10 +116,10 @@ when
 then
         logInfo("heating-control.rules", "damien changed")
         if(receivedCommand == ON){
-	    openValve_param.sendCommand("7")
+	    openValve_param.sendCommand("8")
 	    openValve_run.sendCommand(ON)
 	}else{
-	    closeValve_param.sendCommand("7")
+	    closeValve_param.sendCommand("8")
             closeValve_run.sendCommand(ON)
 	}
 end
